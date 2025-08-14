@@ -54,17 +54,14 @@ p {
     padding-top: 20px;
 }
 
-.card-buttons {
+.card-btns {
     grid-row: 6 / 7;
     grid-column: 2 / 3;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /*column-gap: 20px;*/
-    /*gap: 50px;*/
-    /*width: 400px;*/
 }
 
-.card-buttons button {
+.card-btns button {
     width: 120px;
     height: 30px;
 }

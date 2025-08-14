@@ -27,7 +27,7 @@ function BookForDisplay(book) {
     } else {
         this.status += 'Not read';
     }
-    this.id = 'ID: ' + book.id;
+    this.id = book.id;
 }
 
 
@@ -44,6 +44,24 @@ for (let i = 0; i < library.length; i++) {
 }
 
 let cardholder = document.querySelector('.cardholder');
+
+function addButtons(card) {
+    let cardBtns = document.createElement('div');
+    cardBtns.classList.add('card-btns');
+    let deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.textContent = 'Delete Book';
+    let changeBtn = document.createElement('button');
+    changeBtn.classList.add('change-btn');
+    changeBtn.textContent = 'Change Status';
+
+    deleteBtn.setAttribute('data-id', card.dataset.id);
+    changeBtn.setAttribute('data-id', card.dataset.id);
+
+    cardBtns.appendChild(deleteBtn);
+    cardBtns.appendChild(changeBtn);
+    card.appendChild(cardBtns);
+}
 
 function displayLibrary(lib) {
     if (!(Array.isArray(lib))) {
@@ -66,6 +84,7 @@ function displayLibrary(lib) {
                 card.appendChild(p)
             }
          }
+        addButtons(card);
         cardholder.appendChild(card)
     }
 }
@@ -76,6 +95,13 @@ const showDialog = document.getElementById('showDialog');
 const bookDialog = document.getElementById('dialog');
 const bookForm = document.getElementById('book-dialog-form');
 const closeBtn = document.getElementById('close-btn');
+let deleteBtn = document.querySelectorAll('.delete-btn');
+
+deleteBtn.forEach(btn => btn.addEventListener('click', () => {
+    let currentCardId = btn.parentElement.parentElement.dataset.id;
+    let currentCard = document.querySelector(`[data-id="${currentCardId}"]`);
+    currentCard.remove()
+}))
 
 showDialog.addEventListener('click', () => {
     bookDialog.showModal();
