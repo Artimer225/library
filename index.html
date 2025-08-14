@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="cardholder">
+            <!-- dummy card for previewing purposes            -->
+            <div class="card">
+                <p class="title">Some Really Long Title Of A Great Book That I Like To Read</p>
+                <p class="author">Author: George R. R. Martin</p>
+                <p class="pages">Pages: 694</p>
+                <p class="language">Original language: English</p>
+                <p class="read">Status: Read</p>
+                <div class="card-buttons">
+                    <button>Detele Book</button>
+                    <button>Change Status</button>
+                </div>
+            </div>
+        </div>
+        <div class="book-dialog">
+            <dialog id="dialog">
+                <form id="book-dialog-form">
+                    <div class="book-form">
+                        <label for="title">Title of the book:</label>
+                        <input type="text" name="title" id="title" required>
+                    </div>
+                    <div class="book-form">
+                        <label for="author">Author of the book:</label>
+                        <input type="text" name="author" id="author" required>
+                    </div>
+                    <div class="book-form">
+                        <label for="pages">Number of pages:</label>
+                        <input type="text" name="pages" id="pages" required>
+                    </div>
+                    <div class="book-form">
+                        <label for="language">Language of the book:</label>
+                        <input type="text" name="language" id="language" required>
+                    </div>
+                    <div class="book-form">
+                        <label for="read">Status of the book:</label>
+                        <select name="status" id="read" required>
+                            <option value="">Select current status of the book</option>
+                            <option value="0">Not read</option>
+                            <option value="1">Currently reading</option>
+                            <option value="2">Read</option>
+                        </select>
+                    </div>
+                    <div class="book-form-buttons">
+<!--                        <button value="cancel" formmethod="dialog">Cancel</button>-->
+                        <input type="submit" id="close-btn" value="Cancel">
+                        <input type="submit" value="Confirm">
+                    </div>
+                </form>
+            </dialog>
+            <button id="showDialog">Add Book</button>
+        </div>
+    </div>
+</body>
+</html>
