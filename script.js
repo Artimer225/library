@@ -1,4 +1,6 @@
 const library = [];
+// the second lib intended for formatted books
+let formLibrary = [];
 
 // let's pretend that we receive unformatted data from the DB
 function Book(title, author, pages, language, read) {
@@ -38,9 +40,9 @@ let thirdBook = new Book('1984', 'George Orwell', 328, 'English', 2)
 
 library.push(firstBook, secondBook, thirdBook);
 
-let newLibrary = [];
+
 for (let i = 0; i < library.length; i++) {
-    newLibrary.push(new BookForDisplay(library[i]))
+    formLibrary.push(new BookForDisplay(library[i]))
 }
 
 let cardholder = document.querySelector('.cardholder');
@@ -54,10 +56,6 @@ function addButtons(card) {
     let changeBtn = document.createElement('button');
     changeBtn.classList.add('change-btn');
     changeBtn.textContent = 'Change Status';
-
-    deleteBtn.setAttribute('data-id', card.dataset.id);
-    changeBtn.setAttribute('data-id', card.dataset.id);
-
     cardBtns.appendChild(deleteBtn);
     cardBtns.appendChild(changeBtn);
     card.appendChild(cardBtns);
@@ -89,19 +87,32 @@ function displayLibrary(lib) {
     }
 }
 
-displayLibrary(newLibrary)
+displayLibrary(formLibrary)
 
 const showDialog = document.getElementById('showDialog');
 const bookDialog = document.getElementById('dialog');
 const bookForm = document.getElementById('book-dialog-form');
 const closeBtn = document.getElementById('close-btn');
-let deleteBtn = document.querySelectorAll('.delete-btn');
 
-deleteBtn.forEach(btn => btn.addEventListener('click', () => {
-    let currentCardId = btn.parentElement.parentElement.dataset.id;
-    let currentCard = document.querySelector(`[data-id="${currentCardId}"]`);
-    currentCard.remove()
-}))
+cardholder.addEventListener('click', e => {
+    if (e.target.matches('.delete-btn')) {
+            let currentCardId = e.target.parentElement.parentElement.dataset.id;
+            let currentCard = document.querySelector(`[data-id="${currentCardId}"]`);
+            currentCard.remove()
+            const isId = (book) => book.id === currentCardId;
+            const libId = library.findIndex(isId);
+            const formLibId = formLibrary.findIndex(isId);
+            library.splice(libId, 1);
+            formLibrary.splice(formLibId, 1);
+    }
+})
+
+cardholder.addEventListener('click', e => {
+    if (e.target.matches('.change-btn')) {
+        console.log("you've clicked change button")
+    }
+})
+
 
 showDialog.addEventListener('click', () => {
     bookDialog.showModal();
@@ -121,7 +132,9 @@ bookForm.addEventListener('submit', (e) => {
         tempArray.push(value)
     }
     let tempBook = new Book(...tempArray)
+    library.push(tempBook)
     let formBook = new BookForDisplay(tempBook)
+    formLibrary.push(formBook)
     displayLibrary(formBook)
     bookDialog.close();
     bookForm.reset()

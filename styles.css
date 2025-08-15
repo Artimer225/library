@@ -58,7 +58,8 @@ p {
     grid-row: 6 / 7;
     grid-column: 2 / 3;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    place-items: start;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .card-btns button {
