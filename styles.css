@@ -18,7 +18,7 @@ p {
 .container {
     display: grid;
     grid-template-columns: 100px 1fr 100px;
-    grid-template-rows: 100px 1fr 100px;
+    grid-template-rows: 50px 1fr 200px;
 }
 
 .cardholder {
@@ -39,9 +39,14 @@ p {
     height: 220px;
     width: 400px;
     background-color: white;
-    border: solid 5px yellow;
+    border: solid 3px #fff;
     border-radius: 10px;
     gap: 5px;
+}
+
+.card:hover {
+    border: solid 3px #A8FF00;
+    box-shadow: 0 0 0.5rem #A8FF00;
 }
 
 .card p {
@@ -69,7 +74,7 @@ p {
 
 .book-dialog {
     grid-column: 2 / 3;
-    grid-row: 1 / 2;
+    grid-row: 3 / 4;
     place-self: center;
 }
 
@@ -82,6 +87,15 @@ p {
     border-radius: 10px;
 }
 
+#showDialog:hover {
+    border: solid 3px #95BF40;
+    box-shadow: 0 0 0.5rem #A8FF00;
+}
+
+#showDialog:active {
+    border: solid 3px #A8FF00;
+}
+
 #book-dialog-form {
     gap: 10px;
     display: flex;
@@ -92,3 +106,16 @@ p {
     display: block;
 }
 
+#create-dialog {
+    margin-top: 50px;
+    border: solid 3px #95BF40;
+    border-radius: 10px;
+}
+
+#create-dialog label {
+    font-size: 18pt;
+}
+
+#create-dialog input[type='text'] {
+    width: 200px;
+}
