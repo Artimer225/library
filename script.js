@@ -138,7 +138,6 @@ displayLibrary(formLibrary)
 
 const showDialog = document.getElementById('showDialog');
 const bookDialog = document.getElementById('create-dialog');
-const changeDialog = document.getElementById('change-dialog');
 const bookForm = document.getElementById('book-dialog-form');
 const closeBtn = document.getElementById('close-btn');
 
@@ -168,7 +167,7 @@ cardholder.addEventListener('click', e => {
 })
 
 cardholder.addEventListener('submit', e => {
-    if (e.target.matches('.change-status-form')) {
+    if (e.target.matches('.change-status-form') && (e.submitter.value === 'Confirm')) {
         e.preventDefault();
         // THIS ONE! finally
         const chosenStatus = e.target.querySelector('[name="status"]').value;
@@ -179,7 +178,12 @@ cardholder.addEventListener('submit', e => {
         let previousStatus = e.target.closest('.card').querySelector('.status').innerText.slice(0, 8);
         previousStatus += chosenStatusText;
         e.target.closest('.card').querySelector('.status').innerText = previousStatus;
-
+        let parentDiv = e.target.closest('.change-status');
+        parentDiv.firstChild.close();
+    } else if (e.target.matches('.change-status-form') && (e.submitter.value === 'Cancel')) {
+        e.preventDefault();
+        let parentDiv = e.target.closest('.change-status');
+        parentDiv.firstChild.close();
     }
 })
 

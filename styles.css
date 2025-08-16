@@ -119,3 +119,24 @@ p {
 #create-dialog input[type='text'] {
     width: 200px;
 }
+
+.change-dialog {
+    margin-top: 50px;
+    border: solid 3px #95BF40;
+    border-radius: 10px;
+}
+
+.change-dialog select {
+    width: 150px;
+}
+
+.change-status-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.change-form-buttons {
+    display: flex;
+    gap: 5px;
+}
