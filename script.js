@@ -1,4 +1,17 @@
-const library = [];
+class LibraryStorage {
+    constructor() {
+        this.libraryStorage = [];
+    }
+
+    get storage() {
+        return this.libraryStorage;
+    }
+
+    set storage(value) {
+        this.libraryStorage.push(value)
+    }
+}
+
 class Book {
     constructor(title, author, pages, language, read) {
         this.title = title;
@@ -36,14 +49,6 @@ class Book {
     }
 }
 
-// dummy cards for testing purposes
-let firstBook = new Book('The Hobbit', 'J. R. R. Tolkien', '356', 'English', '2');
-let secondBook = new Book('Crime and Punishment', 'Fyodor Dostoevsky', '488', 'Russian', '0')
-let thirdBook = new Book('1984', 'George Orwell', '328', 'English', '2')
-
-library.push(firstBook, secondBook, thirdBook);
-
-
 class LibraryDisplay {
     constructor () {
         // get all HTML elements
@@ -60,9 +65,9 @@ class LibraryDisplay {
                 let currentCard = document.querySelector(`[data-id="${currentCardId}"]`);
                 currentCard.remove()
                 const isId = (book) => book.id === currentCardId;
-                const libId = library.findIndex(isId);
+                const libId = library.storage.findIndex(isId);
                 // const formLibId = formLibrary.findIndex(isId);
-                library.splice(libId, 1);
+                library.storage.splice(libId, 1);
                 // formLibrary.splice(formLibId, 1);
             }
         })
@@ -71,7 +76,7 @@ class LibraryDisplay {
             if (e.target.matches('.change-btn')) {
                 let currentCardId = e.target.closest('.card').dataset.id;
                 const isId = (book) => book.id === currentCardId;
-                const currentBook = library[library.findIndex(isId)];
+                const currentBook = library.storage[library.storage.findIndex(isId)];
                 const currentStatus = currentBook.readValue
                 let parentDiv = e.target.closest('.change-status');
                 parentDiv.querySelector('[name="status"]').options[currentStatus].selected = true;
@@ -87,8 +92,8 @@ class LibraryDisplay {
                 const chosenStatusText = e.target.querySelector(`[value="${chosenStatus}"]`).innerText;
                 let currentCardId = e.target.closest('.card').dataset.id;
                 const isId = (book) => book.id === currentCardId;
-                library[library.findIndex(isId)].readValue = chosenStatus;
-                library[library.findIndex(isId)].readStatus = chosenStatusText;
+                library.storage[library.storage.findIndex(isId)].readValue = chosenStatus;
+                library.storage[library.storage.findIndex(isId)].readStatus = chosenStatusText;
                 let previousStatus = e.target.closest('.card').querySelector('.status').innerText.slice(0, 8);
                 previousStatus += chosenStatusText;
                 e.target.closest('.card').querySelector('.status').innerText = previousStatus;
@@ -120,7 +125,7 @@ class LibraryDisplay {
                 tempArray.push(value)
             }
             let tempBook = new Book(...tempArray)
-            library.push(tempBook)
+            library.storage.push(tempBook)
             // let formBook = new BookForDisplay(tempBook)
             // formLibrary.push(formBook)
             this.displayLibrary(tempBook)
@@ -218,7 +223,16 @@ class LibraryDisplay {
     }
 }
 
+const library = new LibraryStorage();
 
-// LibraryDisplay.displayLibrary(formLibrary);
-let libraryDisplayInstance = new LibraryDisplay();
-libraryDisplayInstance.displayLibrary(library);
+// dummy cards for testing purposes
+const firstBook = new Book('The Hobbit', 'J. R. R. Tolkien', '356', 'English', '2');
+const secondBook = new Book('Crime and Punishment', 'Fyodor Dostoevsky', '488', 'Russian', '0')
+const thirdBook = new Book('1984', 'George Orwell', '328', 'English', '2')
+
+library.storage = firstBook;
+library.storage = secondBook;
+library.storage = thirdBook;
+
+const libraryDisplayInstance = new LibraryDisplay();
+libraryDisplayInstance.displayLibrary(library.storage);
